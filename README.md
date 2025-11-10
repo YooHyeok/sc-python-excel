@@ -129,6 +129,43 @@ wb.close()
 app.quit()
 ```
 
+### 액셀 불러오기(시트 추가 및 순서 제어, 시트 삭제 및 활성화)
+```py
+import xlwings as xw # xlwinngs import 및 xw 별칭 부여
+
+# 액셀 앱 만들기
+app = xw.App(add_book=False) # 액셀 생성 및 오픈
+
+# 액셀 워크북 불러오기
+wb = app.books.open('교육이슈현황.xlsx')
+
+# 새로운 시트 생성
+wb.sheets.add('영업2팀') # [`영업2팀` 영업1팀]
+wb.sheets.add('마케팅팀') # [`마케팅팀` 영업2팀 영업1팀]  
+
+# 시트 생성 - [마케팅팀 영업2팀 영업1팀]에서 마케팅팀~영업2팀 사이에 생성
+wb.sheets.add(name='세무회계팀', before='영업2팀') # [마케팅팀 `세무회계팀` 영업2팀 영업1팀]
+
+# 시트 생성 - [마케팅팀 세무회계팀 영업2팀 영업1팀]에서 영업2팀~영업1팀 사이에 생성
+wb.sheets.add(name='영업3팀', after='영업2팀') # [마케팅팀 세무회계팀 영업2팀 `영업3팀` 영업1팀]
+
+# 워크 시트 선택 (인덱스)
+wb.sheets[0] # <Sheet [교육이슈현황.xlsx]마케팅팀>
+wb.sheets[3] # <Sheet [교육이슈현황.xlsx]영업3팀>
+
+# 워크 시트 선택 (이름)
+wb.sheets['영업3팀']
+
+# 시트 삭제
+wb.sheets['영업3팀'].delete() # [마케팅팀 세무회계팀 영업2팀 영업1팀]
+
+# 시트 활성화 - activate()
+wb.sheets['마케팅팀'].activate()
+
+# 액셀 저장 및 종료
+wb.save()
+app.quit()
+```
 
 </details>
 <br>
