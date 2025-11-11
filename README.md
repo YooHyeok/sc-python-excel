@@ -208,6 +208,83 @@ app.quit()
 크롤릴을 통해 실시간으로 수집한 데이터를 원하는 위치에 넣을 수도 있으며,  
 다른 파일, 데이터 베이스에서 추출한 데이터를 넣을수도 있다.  
 
+### 액셀 데이터 가져오기
+
+```py
+import xlwings as xw
+
+app = xw.App(add_book=False)
+wb = app.books.open('교육이슈현황.xlsx')
+ws = wb.sheets['마케팅팀']
+
+# 셀 한개 접근하기
+ws.range('A1') # <Range [교육이슈현황.xlsx]마케팅팀!$A$1>
+
+# 셀 한계 값 가져오기
+ws.range('A1').value # '성명'
+
+# 셀 여러개 접근하기
+ws.range('A1:B8') # <Range [교육이슈현황.xlsx]마케팅팀!$A$1:$B$8>
+
+# 셀 여러개 값 가져오기
+ws.range('A1:B8').value # 2차원 리스트 값 가져오게 됨
+
+# C1 ~ D1에 신규 월 추가
+ws.range('C1').value = ['2월', '3월']
+```
+
+### 복사 붙여넣기 - xlwings에서만 사용할 수 있는 특별한 기능
+```py
+import xlwings as xw
+
+app = xw.App(add_book=False)
+wb = app.books.open('교육이슈현황.xlsx')
+ws = wb.sheets['마케팅팀']
+
+# C1 ~ D1에 신규 월 추가
+ws.range('C1').value = ['2월', '3월']
+
+# 복사
+ws.range('B2:B8').copy()
+
+# 붙여넣기
+ws.range('C2').paste()
+ws.range('D2').paste()
+```
+
+### 셀 확장해서 선택하기
+데이터가 없는 곳이 나오면 끊긴다.
+```py
+
+# 아래방향
+ws.range('A1').expand('down').value
+# 우측방향
+ws.range('A1').expand('right').value
+# 테이블(2차원 배열)
+ws.range('A1').expand('table').value
+```
+
+액셀에서 원하는 부분의 데이터를 가지고 올 수 있는 것은 굉장히 활용도가 높은 작업이다.  
+데이터를 다른 파일에 넣을 수 있으며, 웹사이트 자동화나 데이터 분석, 시작화 등에 활용 가능하다.
+
+### 폰트
+```py
+import xlwings as xw
+
+app = xw.App(add_book=False)
+wb = app.books.open('교육이슈현황.xlsx')
+ws = wb.sheets['마케팅팀']
+
+# 폰트 사이즈 변경
+ws.range('A1:D1').font.size = 13
+
+# 폰트 스타일 bold
+ws.range('A1:D1').font.bold = True
+
+# 셀 배경 및 폰트 색 변경
+ws.range('A1:D1').color = (255, 125, 0) # 오렌지 색상
+ws.range('A1:D1').font.color = (250, 250, 0) # 밝은 회색
+```
 
 </details>
 <br>
