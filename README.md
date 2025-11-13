@@ -338,6 +338,70 @@ ex) 현재위치: `C:/Documents/images` → 상대경로:`./프사/셀카.jpg`
 <br>
 <hr>
 
+## 폴더 만들기
+<details>
+<summary>접기/펼치기</summary>
+<br>
+
+
+### 상대 경로 이용1
+```py
+import os # os의 경우 내장 라이브러리 이므로 설치하지 않아도 됨
+os.mkdir('참이슬') # mkdir: make directory - 디렉토리 생성 (./참이슬 에서 ./ 생략)
+
+```
+### 상대 경로 이용2
+```py
+import os
+os.mkdir('참이슬/후레시')
+
+```
+### 상대 경로 이용3
+```py
+import os
+os.mkdir('../카스') # 현재 디렉토리 기준 상위폴더에 카스 디렉토리 생성
+
+```
+### 절대 경로 이용1
+```py
+import os
+os.mkdir('c:/Users/프로젝트폴더/02.폴더및파일관리/테라')
+```
+
+### 절대 경로 이용2 - escape raw string
+```py
+import os
+# os.mkdir('C:\Users\프로젝트폴더\02.폴더및파일관리\테라') # 오류 발생
+
+""" 
+SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \UXXXXXXXX escape
+슬래시와 역슬래시는 경로를 구분할 때 같이 사용할 수 있다.  
+그러나 역슬래시는 문자열 안에서 튻구한 문자들을 나타낼 때 사용하는 기호이다.  
+\n은 줄바꿈, \t는 탭, \0은 null문자  
+즉, \02.~ 부분에서 \0이  null문자로 치환되어버렸기 때문에 경로가 제대로 설정되지 않은것이다.  
+이때 경로를 복사할 때는 문자의 시작기호 앞에 r 을 붙혀주면 해결이된다.
+"""
+
+# escape raw string
+os.rmdir(r'C:\Users\프로젝트폴더\02.폴더및파일관리\테라') # 삭제
+os.mkdir(r'C:\Users\프로젝트폴더\02.폴더및파일관리\테라')
+```
+
+### 폴더가 없을 때만 만들기
+```py
+import os
+
+path = r'C:\Users\프로젝트폴더\02.폴더및파일관리\테라'
+
+if not os.path.exists(path):
+  os.mkdir(path)
+```
+
+</details>
+<br>
+<hr>
+
+
 
 ## Template
 <details>
