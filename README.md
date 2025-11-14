@@ -458,6 +458,146 @@ for i in range(1, 101):
 <br>
 <hr>
 
+### glob 사용법
+<details>
+<summary>접기/펼치기</summary>
+<br>
+
+파일 100개 이름 변경에서 구성한 `참이슬/*.txt` 파일들에 코드를 적용한다.
+
+#### glob(): 파일 경로 반환
+```py
+import glob
+glob.glob('참이슬/sale_data1.txt') # ['참이슬/sale_data1.txt'] - glob.glob()는 리스트 형태로 파일의 경로를 반환한다.
+```
+
+#### ? 기호
+문자의 종류와 상관없이 정확히 한글자와 매칭
+```py
+import glob
+glob.glob('참이슬/sale_data?.txt')
+```
+##### [출력결과]
+```text/plain
+['참이슬\\sale_data1.txt',
+'참이슬\\sale_data2.txt',
+'참이슬\\sale_data3.txt',
+'참이슬\\sale_data4.txt',
+'참이슬\\sale_data5.txt',
+'참이슬\\sale_data6.txt',
+'참이슬\\sale_data7.txt',
+'참이슬\\sale_data8.txt',
+'참이슬\\sale_data9.txt']
+```
+
+
+#### * 기호
+길이와 상관없이 모든 문자열과 매칭
+```py
+import glob
+glob.glob('참이슬/*.txt')
+```
+
+##### [출력결과]
+```text/plain
+['참이슬\\sale_data1.txt',
+ '참이슬\\sale_data10.txt',
+ '참이슬\\sale_data100.txt',
+ '참이슬\\sale_data11.txt',
+ '참이슬\\sale_data12.txt',
+ '참이슬\\sale_data13.txt',
+ '참이슬\\sale_data14.txt',
+ '참이슬\\sale_data15.txt',
+ '참이슬\\sale_data16.txt',
+ '참이슬\\sale_data17.txt',
+ '참이슬\\sale_data18.txt',
+ '참이슬\\sale_data19.txt',
+ '참이슬\\sale_data2.txt',
+ '참이슬\\sale_data20.txt',
+ '참이슬\\sale_data21.txt',
+ '참이슬\\sale_data22.txt',
+ '참이슬\\sale_data23.txt',
+ '참이슬\\sale_data24.txt',
+ '참이슬\\sale_data25.txt',
+ '참이슬\\sale_data26.txt',
+ '참이슬\\sale_data27.txt',
+ '참이슬\\sale_data28.txt',
+ '참이슬\\sale_data29.txt',
+ '참이슬\\sale_data3.txt',
+ '참이슬\\sale_data30.txt',
+...
+ '참이슬\\sale_data95.txt',
+ '참이슬\\sale_data96.txt',
+ '참이슬\\sale_data97.txt',
+ '참이슬\\sale_data98.txt',
+ '참이슬\\sale_data99.txt']
+```
+
+#### [] 기호
+[aeiou], [0-9] (대)괄호안에 있는 문자 하나와 매칭
+
+##### 01. [0-9]
+```py
+import glob
+glob.glob('참이슬/sale_data[0-9].txt')
+```
+##### [출력결과]
+```text/plain
+['참이슬\\sale_data1.txt',
+ '참이슬\\sale_data2.txt',
+ '참이슬\\sale_data3.txt',
+ '참이슬\\sale_data4.txt',
+ '참이슬\\sale_data5.txt',
+ '참이슬\\sale_data6.txt',
+ '참이슬\\sale_data7.txt',
+ '참이슬\\sale_data8.txt',
+ '참이슬\\sale_data9.txt']
+```
+
+##### 02. [123]
+```py
+import glob
+glob.glob('참이슬/sale_data[123].txt')
+```
+##### [출력결과]
+```text/plain
+['참이슬\\sale_data1.txt', '참이슬\\sale_data2.txt', '참이슬\\sale_data3.txt']
+```
+
+</details>
+<br>
+<hr>
+
+### shutil 사용법
+<details>
+<summary>접기/펼치기</summary>
+<br>
+
+파일 100개 이름 변경의 파일 입출력 예제에서 생성한 `일기.txt`, `일기1.txt` 파일을 코드에 적용한다.
+
+#### 폴더 이동
+```py
+import shutil
+shutil.move('../카스', './') # 현재 디렉토리의 상위에 있는 카스 디렉토리를 현재 디렉토리로 이동
+```
+
+#### 파일 이동
+```py
+import shutil
+shutil.move('일기.txt', '카스')
+shutil.move('일기1.txt', '카스')
+```
+
+#### 파일 복사
+```py
+import shutil
+shutil.copy('카스/일기.txt', '테라') # 카스/일기.txt를 테라 디렉토리로 복사
+```
+
+</details>
+<br>
+<hr>
+
 
 ## Template
 <details>
